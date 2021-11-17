@@ -65,7 +65,7 @@ Starten:
 
     java -jar app.jar
 
-## CUBA-Platform Konfiguration
+## CUBA-Platform Konfiguration (AGI)
 
 Globaler User und Pass für Tokenanforderung konfiguriert in **web-app.properties in Web Module**:
 
@@ -77,11 +77,3 @@ Globaler User und Pass für Tokenanforderung konfiguriert in **web-app.propertie
 Für REST den gleichen Security-Kontext verwenden wie für generic UI:
 
     cuba.rest.securityScope = GENERIC_UI
-
-### Token 4 admin
-
-    curl -X POST \
-      http://localhost:8080/app/rest/v2/oauth/token \
-      -u 'restid:restpass' \
-      -H 'Content-Type: application/x-www-form-urlencoded' \
-      -d 'grant_type=password&username=admin&password=admin'
