@@ -7,26 +7,26 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DataThemePublication {
+public class DataPublication {
 
-    @NotBlank(message = "Theme identifier must not be blank.")
-    String themeIdent;
+    @NotBlank(message = "Data identifier must not be blank.")
+    String dataIdent;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY) // Greift nur beim serialisieren. Beim deserialisieren wird leere collection erzeugt
     List<@NotBlank(message = "Part identifier must not be blank.") String> partIdentifiers;
 
-    public DataThemePublication(){}
-    public DataThemePublication(String themeIdent, List<String> partIdentifiers){
-        setThemeIdent(themeIdent);
+    public DataPublication(){}
+    public DataPublication(String dataIdent, List<String> partIdentifiers){
+        setDataIdent(dataIdent);
         setPartIdentifiers(partIdentifiers);
     }
 
-    public String getThemeIdent() {
-        return themeIdent;
+    public String getDataIdent() {
+        return dataIdent;
     }
 
-    public void setThemeIdent(String themeIdent) {
-        this.themeIdent = themeIdent;
+    public void setDataIdent(String dataIdent) {
+        this.dataIdent = dataIdent;
     }
 
     public List<String> getPartIdentifiers() {
@@ -43,6 +43,6 @@ public class DataThemePublication {
     @Override
     public String toString(){
         String parts = getPartIdentifiers().stream().collect(Collectors.joining(", "));
-        return MessageFormat.format("identifier: {0}, parts: {1}", getThemeIdent(), parts);
+        return MessageFormat.format("identifier: {0}, parts: {1}", getDataIdent(), parts);
     }
 }

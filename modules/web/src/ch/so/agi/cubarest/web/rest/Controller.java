@@ -1,6 +1,6 @@
 package ch.so.agi.cubarest.web.rest;
 
-import ch.so.agi.cubarest.web.rest.dto.DataThemePublication;
+import ch.so.agi.cubarest.web.rest.dto.DataPublication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +20,17 @@ public class Controller {
     private static Logger log = LoggerFactory.getLogger(Controller.class);
 
     @GetMapping()
-    public ResponseEntity<@Valid DataThemePublication> get() {
-        DataThemePublication pub = null;
+    public ResponseEntity<@Valid DataPublication> get() {
+        DataPublication pub = null;
 
         if(Math.random() > 0.5) {
-            pub = new DataThemePublication(
-                    "ch.so.agi.av",
+            pub = new DataPublication(
+                    "ch.so.agi.av.mopublic",
                     List.of("224", "225")
             );
         }
         else {
-            pub = new DataThemePublication("ch.so.afu.gewaesserschutz", null);
+            pub = new DataPublication("ch.so.afu.gewaesserschutz", null);
         }
 
         return ResponseEntity.ok(pub);
@@ -38,7 +38,7 @@ public class Controller {
 
     @PutMapping()
     public ResponseEntity put(
-            @RequestBody DataThemePublication pub) {
+            @RequestBody DataPublication pub) {
 
         log.info("Submitted info: {}", pub);
 
@@ -55,9 +55,9 @@ public class Controller {
         return res;
     }
 
-    private static void assertValid(DataThemePublication pub){
+    private static void assertValid(DataPublication pub){
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<DataThemePublication>> violations = validator.validate(pub);
+        Set<ConstraintViolation<DataPublication>> violations = validator.validate(pub);
 
         if(violations != null && violations.size() > 0){
             String innerMessages = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(" | "));

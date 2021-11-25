@@ -11,11 +11,11 @@ des Json "Payload" ersichtlich. "partIdentifiers" ist optional und wird zwecks E
 
     curl -X PUT \
     -H "Content-Type: application/json" \
-    -d '{"themeIdent":"ch.so.agi.av","partIdentifiers":["224","225"]}' \
+    -d '{"dataIdent":"ch.so.agi.av.mopublic","partIdentifiers":["224","225"]}' \
     'http://localhost:8080/app/rest/pubsignal'
 
 Bei Fehlern wird der treffende Status-Code <> 200 sowie eine Fehlermeldung zurückgegeben.
-Kann im Mock provoziert werden durch die Übergabe leerer Strings - Bsp.: `{"themeIdent":""}`
+Kann im Mock provoziert werden durch die Übergabe leerer Strings - Bsp.: `{"dataIdent":""}`
 
 ### Log
 
@@ -54,7 +54,7 @@ PUT auf den Service mit auth:
     curl -X PUT \
     -H 'Authorization: Bearer n0rri21Kxbuekf2wuSPj0NSuMQw' \
     -H "Content-Type: application/json" \
-    -d '{"themeIdent":"ch.so.agi.av","partIdentifiers":["224","225"]}' \
+    -d '{"dataIdent":"ch.so.agi.av.mopublic","partIdentifiers":["224","225"]}' \
     'http://localhost:8080/app/rest/pubsignal'
 
 ## Mock beziehen und starten
