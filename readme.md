@@ -1,11 +1,13 @@
-# Mock für SIMI Rest Service
+# Mock für SIMI Rest Service Endpunkte
 
-## Service Signatur
+## Endpunkt /pubsignal
 
 Der Service-Endpunkt liegt auf dem Pfad **app/rest/pubsignal**. Bei lokalem Starten üblicherweise auf **http://localhost:8080/app/rest/pubsignal**.
 
-Implementiert sind die HTTP-Operationen PUT und GET. Mittels GET wird die Strukturierung 
-des Json "Payload" ersichtlich. "partIdentifiers" ist optional und wird zwecks Erläuterung beim GET mal zurückgegeben, mal nicht. --> Einfach mehrmals GET ausführen um beide Varianten zu sehen.
+Implementiert sind die HTTP-Operationen PUT und GET:
+
+* Mit PUT signalisiert der Publisher die erfolgreiche Publikation.
+* GET ist zwecks Dokumentation ebensfalls implementiert. Es zeigt die Strukturierung des Json "Payload. "partIdentifiers" ist optional und wird zwecks Erläuterung beim GET mal zurückgegeben, mal nicht. --> Einfach mehrmals GET ausführen um beide Varianten zu sehen.
 
 ### PUT-Aufruf:
 
@@ -22,10 +24,23 @@ Kann im Mock provoziert werden durch die Übergabe leerer Strings - Bsp.: `{"dat
 Im Log wird bei Empfang der Nachricht die folgende Zeile ausgegeben:
 
     2021-11-17 12:05:19.792 INFO  [qtp148626113-19/app/admin] ch.so.agi.cubarest.web.rest.Controller - Submitted info: identifier: ch.so.agi.av, parts: 224, 225
+    
+## Endpunkt /doc
 
-## Auth
+Der Service-Endpunkt liegt auf dem Pfad **app/rest/doc**. Bei lokalem Starten üblicherweise auf **http://localhost:8080/app/rest/doc**.
 
-Die OpenAuth2-Authentifizierung ist im Mock noch optional. Benötigt werden zwei Benutzername/Passwort Paare für die Anforderung des Auth-Tokens. Für den Mock gelten die folgenden Paare (Für Integration / Produktion gelten andere):
+### GET-Aufruf
+
+    curl -X GET \
+    -H "Content-Type: text/html" \
+    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.mopublic' 
+
+Bei Fehlern wird der treffende Status-Code <> 200 sowie eine Fehlermeldung zurückgegeben.
+Kann im Mock provoziert werden durch Weglassen oder falsch benannten Parameter "dataident".
+
+## Auth für beide Endpunkte
+
+Die OpenAuth2-Authentifizierung ist im Mock zwecks einfachem Ausprobieren noch optional - produktiv dann zwingend. Benötigt werden zwei Benutzername/Passwort Paare für die Anforderung des Auth-Tokens. Für den Mock gelten die folgenden Paare (Für Integration / Produktion gelten andere):
 
 * Globale Authentifizierung für die Token-Ausgabe
   * User: restid
@@ -48,14 +63,20 @@ Antwort mit "access_token":
 
     {"access_token":"n0rri21Kxbuekf2wuSPj0NSuMQw","token_type":"bearer","refresh_token":"lPgeTNwWTajKE1LEva4TkpHsSk4","expires_in":43199,"scope":"rest-api"}
 
-
-PUT auf den Service mit auth:
+PUT auf Endpunkt /pubsignal mit auth:
 
     curl -X PUT \
     -H 'Authorization: Bearer n0rri21Kxbuekf2wuSPj0NSuMQw' \
     -H "Content-Type: application/json" \
     -d '{"dataIdent":"ch.so.agi.av.mopublic","partIdentifiers":["224","225"]}' \
     'http://localhost:8080/app/rest/pubsignal'
+    
+GET auf Endpunkt /doc mit auth:   
+
+    curl -X GET \
+    -H 'Authorization: Bearer n0rri21Kxbuekf2wuSPj0NSuMQw' \
+    -H "Content-Type: text/html" \
+    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.av.mopublic' 
 
 ## Mock beziehen und starten
 
