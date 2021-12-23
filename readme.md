@@ -7,7 +7,10 @@ Der Service-Endpunkt liegt auf dem Pfad **app/rest/pubsignal**. Bei lokalem Star
 Implementiert sind die HTTP-Operationen PUT und GET:
 
 * Mit PUT signalisiert der Publisher die erfolgreiche Publikation.
-* GET ist zwecks Dokumentation ebensfalls implementiert. Es zeigt die Strukturierung des Json "Payload. "partIdentifiers" ist optional und wird zwecks Erläuterung beim GET mal zurückgegeben, mal nicht. --> Einfach mehrmals GET ausführen um beide Varianten zu sehen.
+* GET ist zwecks Dokumentation ebensfalls implementiert. Es zeigt die Strukturierung des Json "Payload:
+  * "dataIdent": Identifikator der Datenbereitstellung
+  * "published": ISO 8601 formatierter Timestamp-String des Publikationszeitpunktes
+  * "partIdentifiers" ist optional und wird zwecks Erläuterung beim GET mal zurückgegeben, mal nicht. --> Einfach mehrmals GET ausführen um beide Varianten zu sehen.
 
 ### PUT-Aufruf:
 
