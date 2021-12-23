@@ -13,7 +13,7 @@ Implementiert sind die HTTP-Operationen PUT und GET:
 
     curl -X PUT \
     -H "Content-Type: application/json" \
-    -d '{"dataIdent":"ch.so.agi.av.mopublic","partIdentifiers":["224","225"]}' \
+    -d '{"dataIdent":"ch.so.afu.gewaesserschutz","published":"2021-12-23T14:54:49.050062", "partIdentifiers":["224","225"]}' \
     'http://localhost:8080/app/rest/pubsignal'
 
 Bei Fehlern wird der treffende Status-Code <> 200 sowie eine Fehlermeldung zurückgegeben.
@@ -23,7 +23,7 @@ Kann im Mock provoziert werden durch die Übergabe leerer Strings - Bsp.: `{"dat
 
 Im Log wird bei Empfang der Nachricht die folgende Zeile ausgegeben:
 
-    2021-11-17 12:05:19.792 INFO  [qtp148626113-19/app/admin] ch.so.agi.cubarest.web.rest.Controller - Submitted info: identifier: ch.so.agi.av, parts: 224, 225
+    2021-11-17 12:05:19.792 INFO  [qtp148626113-19/app/admin] ch.so.agi.cubarest.web.rest.Controller - Submitted info: identifier: ch.so.agi.av, published: 2021-12-23T14:54:49.050062, parts: 224, 225
     
 ## Endpunkt /doc
 
@@ -33,7 +33,9 @@ Der Service-Endpunkt liegt auf dem Pfad **app/rest/doc**. Bei lokalem Starten ü
 
     curl -X GET \
     -H "Content-Type: text/html" \
-    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.mopublic' 
+    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.mopublic&published=2021-12-23T14:50:59.825849' 
+
+
 
 Bei Fehlern wird der treffende Status-Code <> 200 sowie eine Fehlermeldung zurückgegeben.
 Kann im Mock provoziert werden durch Weglassen oder falsch benannten Parameter "dataident".
@@ -68,7 +70,7 @@ PUT auf Endpunkt /pubsignal mit auth:
     curl -X PUT \
     -H 'Authorization: Bearer n0rri21Kxbuekf2wuSPj0NSuMQw' \
     -H "Content-Type: application/json" \
-    -d '{"dataIdent":"ch.so.agi.av.mopublic","partIdentifiers":["224","225"]}' \
+    -d '{"dataIdent":"ch.so.afu.gewaesserschutz","published":"2021-12-23T14:54:49.050062", "partIdentifiers":["224","225"]}' \
     'http://localhost:8080/app/rest/pubsignal'
     
 GET auf Endpunkt /doc mit auth:   
@@ -76,7 +78,7 @@ GET auf Endpunkt /doc mit auth:
     curl -X GET \
     -H 'Authorization: Bearer n0rri21Kxbuekf2wuSPj0NSuMQw' \
     -H "Content-Type: text/html" \
-    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.av.mopublic' 
+    'http://localhost:8080/app/rest/doc?dataident=ch.so.agi.mopublic&published=2021-12-23T14:50:59.825849'
 
 ## Mock beziehen und starten
 

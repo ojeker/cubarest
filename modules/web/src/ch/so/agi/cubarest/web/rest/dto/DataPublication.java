@@ -15,10 +15,22 @@ public class DataPublication {
     @JsonInclude(JsonInclude.Include.NON_EMPTY) // Greift nur beim serialisieren. Beim deserialisieren wird leere collection erzeugt
     List<@NotBlank(message = "Part identifier must not be blank.") String> partIdentifiers;
 
+    @NotBlank(message = "Published timestamp must not be blank")
+    String published; // $td: Configure jackson mapping
+
     public DataPublication(){}
-    public DataPublication(String dataIdent, List<String> partIdentifiers){
+    public DataPublication(String dataIdent, List<String> partIdentifiers, String published){
         setDataIdent(dataIdent);
         setPartIdentifiers(partIdentifiers);
+        setPublished(published);
+    }
+
+    public String getPublished() {
+        return published;
+    }
+
+    public void setPublished(String published) {
+        this.published = published;
     }
 
     public String getDataIdent() {
@@ -43,6 +55,6 @@ public class DataPublication {
     @Override
     public String toString(){
         String parts = getPartIdentifiers().stream().collect(Collectors.joining(", "));
-        return MessageFormat.format("identifier: {0}, parts: {1}", getDataIdent(), parts);
+        return MessageFormat.format("identifier: {0}, published: {1} parts: {2}", getDataIdent(), getPublished(), parts);
     }
 }

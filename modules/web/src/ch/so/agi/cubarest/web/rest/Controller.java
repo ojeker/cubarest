@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.*;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,11 +30,12 @@ public class Controller {
         if(Math.random() > 0.5) {
             pub = new DataPublication(
                     "ch.so.agi.av.mopublic",
-                    List.of("224", "225")
+                    List.of("224", "225"),
+                    ZonedDateTime.now().format( DateTimeFormatter.ISO_LOCAL_DATE_TIME )
             );
         }
         else {
-            pub = new DataPublication("ch.so.afu.gewaesserschutz", null);
+            pub = new DataPublication("ch.so.afu.gewaesserschutz", null, ZonedDateTime.now().format( DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         }
 
         return ResponseEntity.ok(pub);
@@ -39,6 +44,8 @@ public class Controller {
     @PutMapping()
     public ResponseEntity put(
             @RequestBody DataPublication pub) {
+
+        //OffsetDateTime odt = OffsetDateTime.parse( pub.getPublished() );
 
         log.info("Submitted info: {}", pub);
 

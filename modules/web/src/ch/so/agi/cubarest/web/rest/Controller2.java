@@ -8,8 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,9 @@ public class Controller2 {
     private static Logger log = LoggerFactory.getLogger(Controller2.class);
 
     @GetMapping()
-    public ResponseEntity<String> get(@RequestParam String dataident) {
+    public ResponseEntity<String> get(@NotEmpty @RequestParam String dataident, @NotEmpty @RequestParam String published) {
+
+        //OffsetDateTime odt = OffsetDateTime.parse( published );
 
         String template = "<!DOCTYPE html>\n" +
                 "<html lang=\"de\">\n" +
