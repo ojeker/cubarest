@@ -85,13 +85,24 @@ GET auf Endpunkt /doc mit auth:
 
 ## Mock beziehen und starten
 
-Der Mock liegt als Java 11 fat jar unter "releases" vor (in diesem Repo).
+### Datenbank-Abhängigkeit
+
+Der Mock braucht eine Postgres-Datenbank auf localhost:5432. DB-Name, Benutzername und Passwort: "postgres". 
+Benutzer postgres braucht DDL-Rechte.
+
+Beispielsweise via docker run:
+
+    docker run -it --name pg_simi --network host -e POSTGRES_PASSWORD=postgres postgres:13
+    
+### Mock "jar" herunterladen und starten
+
+Der Mock selbst liegt als Java 11 fat jar unter "releases" vor (in diesem Repo).
 
 Starten:
 
     java -jar app.jar
 
-## CUBA-Platform Konfiguration (AGI)
+# CUBA-Platform Konfiguration für spätere Prod-Integration (AGI)
 
 Globaler User und Pass für Tokenanforderung konfiguriert in **web-app.properties in Web Module**:
 
